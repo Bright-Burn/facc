@@ -1,21 +1,28 @@
 import {useState} from "react";
 
-export const ChildComponent = ({children, todoId}) => {
-    const [todos, setTOdos] = useState([])
+export const ChildComponent = ({children, name}) => {
+    const [pokemon, setPokemon] = useState(null)
+
     const getData = async () => {
-        const result= await fetch(`https://jsonplaceholder.typicode.com/todos/${todoId}`)
+        const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
             .then(response => response.json())
-            .then(todos => {
-                setTOdos(todos)
+            .then(pokemon => {
+                setPokemon(pokemon)
             })
         return result
     }
-    console.log(typeof children)
-    console.log(children)
     return typeof children === "function"
-        ?  children({data: todos, getTodo: getData})
+        ? children({data: pokemon, getPokemon: getData})
         : children ??
-     (
-        <div>Child Component</div>
-    )
+        (
+            <>{(pokemon ? <>
+                    <div>Name: {pokemon.name}</div>
+                    <div>Weight: {pokemon.weight}</div>
+                    <div>Height: {pokemon.height}</div>
+
+                </> : 'Введите имя покемона'
+            )}
+                <button onClick={getData}>get data</button>
+            </>
+        )
 }
