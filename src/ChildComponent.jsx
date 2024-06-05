@@ -11,16 +11,22 @@ export const ChildComponent = ({children, name}) => {
             })
         return result
     }
+    // React.Children.map(children, child => {
+    //     if (typeof child === "function") {
+    //         child({data: pokemon, getPokemon: getData})
+    //     }
+    //     return child
+    // })
     return typeof children === "function"
         ? children({data: pokemon, getPokemon: getData})
         : children ??
         (
-            <>{(pokemon ? <>
+            <>{(pokemon ? <div className='cardBorder'>
                     <div>Name: {pokemon.name}</div>
                     <div>Weight: {pokemon.weight}</div>
                     <div>Height: {pokemon.height}</div>
 
-                </> : 'Введите имя покемона'
+                </div> : 'Введите имя покемона'
             )}
                 <button onClick={getData}>get data</button>
             </>

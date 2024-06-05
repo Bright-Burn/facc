@@ -12,12 +12,12 @@ export const SimpleChildComponent = ({name}) => {
         return result
     }
 
-    return <>{(pokemon ? <>
+    return <>{(pokemon ? <div className='cardBorder'>
             <div>Name: {pokemon.name}</div>
             <div>Weight: {pokemon.weight}</div>
             <div>Height: {pokemon.height}</div>
 
-        </> : 'Введите имя покемона'
+        </div> : 'Введите имя покемона'
     )}
         <button onClick={getData}>get data</button>
     </>
