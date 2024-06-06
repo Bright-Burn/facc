@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-export const ChildComponent = ({children, name}) => {
+export const HellLikeChildComponent = ({children, name}) => {
     const [pokemon, setPokemon] = useState(null)
 
     const getData = async () => {

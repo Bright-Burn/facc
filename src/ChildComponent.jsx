@@ -12,35 +12,18 @@ export const ChildComponent = ({children, name}) => {
         return result
     }
 
-    if (!pokemon) return <>
-        Введите имя покемона
-        <button onClick={getData}>get data</button>
-    </>
+    return typeof children === "function"
+        ? children({data: pokemon, getPokemon: getData})
+        : children ??
+        (
+            <>{(pokemon ? <div className='cardBorder'>
+                    <div>Name: {pokemon.name}</div>
+                    <div>Weight: {pokemon.weight}</div>
+                    <div>Height: {pokemon.height}</div>
 
-
-    const defaultTemplate = (
-        <>
-            <Name name={pokemon.name}/>
-            <Weight weight={pokemon.weight}/>
-            <Height height={pokemon.height}/>
-            <Append/>
-        </>
-    )
-
-    const child = children({data: pokemon, getPokemon: getData})
-    const extendMapper = React.Children.toArray(child.props.children)
-        .reduce((acc, child) => {
-            acc[child.type.name] = child
-            return acc
-        }, {})
-    return React.Children.map(defaultTemplate.props.children, child => extendMapper[child.type.name] ?? child)
-
+                </div> : 'Введите имя покемона'
+            )}
+                <button onClick={getData}>get data</button>
+            </>
+        )
 }
-export const Name = ({name, children}) => children ??
-    (
-        <div>Name: {name}</div>
-
-    )
-const Weight = ({weight}) => <div>Weight: {weight}</div>
-const Height = ({height}) => <div>Height: {height}</div>
-export const Append = ({children}) => <>{children}</>
