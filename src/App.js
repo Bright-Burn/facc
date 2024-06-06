@@ -1,7 +1,7 @@
 import './App.css';
-import {useState} from "react";
-import {ChildComponent} from "./ChildComponent.jsx";
+import React, {useState} from "react";
 import {SimpleChildComponent} from "./SimpleChildComponent";
+import {Name, Append, ChildComponent} from "./Hell.jsx";
 
 function App() {
 
@@ -12,19 +12,17 @@ function App() {
 
     return (
         <div className={"App"}>
-            <SimpleChildComponent name={inputValue}/>
             <ChildComponent name={inputValue}>
                 {({data, getPokemon}) => {
                     return <>
-                        {(data ? <div className={'cardBorder'}>
-                                <img src={data.sprites.front_default} alt=""/>
-                                <div>Name: {data.name}</div>
-                                <div>Weight: {data.weight}</div>
-                                <div>Height: {data.height}</div>
+                        <Name>
+                            <img src={data.sprites.front_default} alt=""/>
+                            <div>Name: {data.name}</div>
+                        </Name>
 
-                            </div> : 'Введите имя покемона'
-                        )}
-                        <button onClick={getPokemon}>get data</button>
+                        <Append>
+                            <button onClick={getPokemon}>get data</button>
+                        </Append>
                     </>
                 }}
             </ChildComponent>
