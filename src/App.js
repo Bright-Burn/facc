@@ -1,8 +1,8 @@
 import './App.css';
 import React, {useState} from "react";
+import {SimpleChildComponent} from "./SimpleChildComponent.jsx";
 import {ChildComponent} from "./ChildComponent.jsx";
 import {Name, Append, HellLikeChildComponent} from "./Hell.jsx";
-import {SimpleChildComponent} from "./SimpleChildComponent.jsx";
 
 function App() {
 
@@ -13,40 +13,35 @@ function App() {
 
     return (
         <div className={"App"}>
-            <div className={'cardBorder'}>
-                <SimpleChildComponent name={inputValue}/>
-            </div>
+            {/*<div className={'cardBorder'}>*/}
+            {/*    <SimpleChildComponent name={inputValue}/>*/}
+            {/*</div>*/}
+
             <div className={'cardBorder'}>
                 <ChildComponent name={inputValue}>
-                    {({data, getPokemon}) => {
-                        return <>
-                            {(data ? <>
-                                    <img src={data.sprites.front_default} alt=""/>
-                                    <div>Name: {data.name}</div>
-                                    <div>Weight: {data.weight}</div>
-                                    <div>Height: {data.height}</div>
-
-                                </> : 'Введите имя покемона'
-                            )}
-                            <button onClick={getPokemon}>get data</button>
-                        </>
-                    }}
+                    {({data, getPokemon}) => (
+                        <div>
+                            <img src={data.sprites.front_default}/>
+                            <div>Name: {data.name}</div>
+                            <div>Height: {data.height}</div>
+                            <div>Weight: {data.weight}</div>
+                            <button onClick={getPokemon}>Get Data</button>
+                        </div>
+                    )}
                 </ChildComponent>
             </div>
             <div className={'cardBorder'}>
                 <HellLikeChildComponent name={inputValue}>
-                    {({data, getPokemon}) => {
-                        return <>
-                            <Name>
-                                <img src={data.sprites.front_default} alt=""/>
-                                <div>Name: {data.name}</div>
+                    {({data, getPokemon}) => (
+                        <>
+                            <Name name={data.name}>
+                                <img src={data.sprites.front_default}/>
                             </Name>
-
                             <Append>
-                                <button onClick={getPokemon}>get data</button>
+                                <button onClick={getPokemon}>Get Data</button>
                             </Append>
                         </>
-                    }}
+                    )}
                 </HellLikeChildComponent>
             </div>
             <input type="text" onChange={handleInputChange}/>
